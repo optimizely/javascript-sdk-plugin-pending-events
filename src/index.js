@@ -1,36 +1,43 @@
 class PendingEvents {
   constructor(localStorageKey, events) {
     this.localStorageKey = localStorageKey;
-    // Re-index events to remove gaps
     this.length = 0;
-    this.events = Object.values(events).reduce((res, event) => {
-      res[this.length++] = event;
-      return res;
-    }, {});
+    this.events = {};
+    Object.values(events).forEach((event) => this.enqueue(event));
+    this.persist();
   }
 
   persist() {
+    // TODO: delete key if empty
     window.localStorage.setItem(this.localStorageKey, JSON.stringify(this.events));
   }
 
   enqueue(event) {
-    this.events[this.length++] = event;
-    return this.length;
+    const idx = this.length++;
+    this.events[idx] = event;
+
+    return this.sendEvent(event)
+      .then(() => {
+        this.dequeue(idx);
+        this.persist();
+      });
   }
 
   dequeue(index) {
     delete this.events[index];
   }
-}
 
-// TODO: use a cross-browser alternative to fetch
-const sendEvent = (event) => fetch(event.url, {
-  method: event.httpVerb,
-  body: JSON.stringify(event.params),
-  headers: {
-    'content-type': 'application/json',
-  },
-});
+  // TODO: use a cross-browser alternative to fetch
+  sendEvent(event) {
+    return fetch(event.url, {
+      method: event.httpVerb,
+      body: JSON.stringify(event.params),
+      headers: {
+        'content-type': 'application/json',
+      },
+    });
+  }
+}
 
 /**
  * Construct an [`EventDispatcher`](https://developers.optimizely.com/x/solutions/sdks/reference/index.html?language=javascript#event-dispatcher)
@@ -40,23 +47,21 @@ const sendEvent = (event) => fetch(event.url, {
  */
 export default (localStorageKey) => {
   let currentEvents = {};
-  const persistedEvents = window.localStorage.getItem(localStorageKey);
-  if (persistedEvents) {
-    try {
+  try {
+    const persistedEvents = window.localStorage.getItem(localStorageKey);
+    if (persistedEvents) {
       currentEvents = JSON.parse(persistedEvents);
-    } catch (e) {
-      // suppress errors loading from JSON
     }
+  } catch (e) {
+    // Suppress errors loading from storage
   }
 
   const pendingEvents = new PendingEvents(localStorageKey, currentEvents);
 
   return {
     dispatchEvent: (event) => {
-      const idx = pendingEvents.enqueue(event);
-      sendEvent(event).then(() => {
-        pendingEvents.dequeue(idx);
-      });
+      pendingEvents.enqueue(event);
+      pendingEvents.persist();
     }
   };
 }
