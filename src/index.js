@@ -23,6 +23,15 @@ class PendingEvents {
   }
 }
 
+// TODO: use a cross-browser alternative to fetch
+const sendEvent = (event) => fetch(event.url, {
+  method: event.httpVerb,
+  body: JSON.stringify(event.params),
+  headers: {
+    'content-type': 'application/json',
+  },
+});
+
 /**
  * Construct an [`EventDispatcher`](https://developers.optimizely.com/x/solutions/sdks/reference/index.html?language=javascript#event-dispatcher)
  * compatible with @optimizely/optimizely-sdk
@@ -45,7 +54,7 @@ export default (localStorageKey) => {
   return {
     dispatchEvent: (event) => {
       const idx = pendingEvents.enqueue(event);
-      sendEvents(event).then(() => {
+      sendEvent(event).then(() => {
         pendingEvents.dequeue(idx);
       });
     }

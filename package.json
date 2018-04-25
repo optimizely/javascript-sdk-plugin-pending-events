@@ -1,6 +1,6 @@
 {
   "name": "@optimizely/sdk-plugin-pending-events",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Event Dispatcher plugin that provides a persistent pending event queue",
   "main": "lib/index.js",
   "scripts": {
@@ -17,5 +17,9 @@
     "babel-preset-env": "^1.6.1",
     "documentation": "^6.3.2",
     "prettier": "^1.12.1"
-  }
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {}
 }
