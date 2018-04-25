@@ -1,0 +1,11 @@
+{
+  "name": "@optimizely/sdk-plugin-pending-events",
+  "version": "0.1.0",
+  "description": "Event Dispatcher plugin that provides a persistent pending event queue",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "Apache-2.0"
+}
