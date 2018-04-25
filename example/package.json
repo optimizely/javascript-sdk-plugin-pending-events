@@ -1,0 +1,20 @@
+{
+  "name": "@optimizely/pending-events-plugin-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "webpack": "^4.6.0",
+    "webpack-cli": "^2.0.15"
+  },
+  "dependencies": {
+    "@optimizely/optimizely-sdk": "^2.0.1",
+    "@optimizely/sdk-plugin-pending-events": "^0.1.1"
+  }
+}
