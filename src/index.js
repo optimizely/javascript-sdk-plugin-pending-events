@@ -40,10 +40,10 @@ class PendingEvents {
 }
 
 /**
- * Construct an [`EventDispatcher`](https://developers.optimizely.com/x/solutions/sdks/reference/index.html?language=javascript#event-dispatcher)
- * compatible with @optimizely/optimizely-sdk
+ * Construct an EventDispatcher compatible with @optimizely/optimizely-sdk
  *
  * @param {String} localStorageKey Key under which to persist/load pending events in `window.localStorage`
+ * @return {EventDispatcher} An object with a dispatchEvent method, suitable for use as an EventDispatcher
  */
 export default (localStorageKey) => {
   let currentEvents = {};
