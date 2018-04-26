@@ -6,13 +6,14 @@ import Plugin from '../src/index';
 describe('PendingEventsPlugin', () => {
   const testKey = 'optimizelyLocalStorageTest';
   let fetchStub;
+  let logger;
 
   beforeEach(() => {
-    fetchStub = sinon.stub(window, 'fetch').returns(Promise.resolve());
+    fetchStub = sinon.stub();
+    logger = sinon.spy();
   });
 
   afterEach(() => {
-    fetchStub.restore();
     removeData();
   });
 
@@ -142,7 +143,6 @@ describe('PendingEventsPlugin', () => {
 
     context('while fetch is pending', () => {
       beforeEach(() => {
-        fetchStub.returns(new Promise((resolve) => {}));
         plugin.dispatchEvent(testEvent);
       });
 
@@ -152,32 +152,36 @@ describe('PendingEventsPlugin', () => {
     });
 
     context('when fetch is successful', () => {
-      let fetchResolved;
-
       beforeEach(() => {
-        fetchResolved = Promise.resolve();
-        fetchStub.returns(fetchResolved);
+        fetchStub.callsFake((url, options, callback) => {
+          callback();
+        });
         plugin.dispatchEvent(testEvent);
       });
 
       it('dequeues the event', () => {
-        return fetchResolved.then(() => assertPersisted({}));
+        assertPersisted({});
       });
     });
 
     context('when fetch fails', () => {
-      let fetchFailed;
       let fetchError;
 
       beforeEach(() => {
         fetchError = new Error('oh noes');
-        fetchFailed = Promise.reject(fetchError);
-        fetchStub.returns(fetchFailed);
+        fetchStub.callsFake((url, options, callback) => {
+          callback(fetchError);
+        });
         plugin.dispatchEvent(testEvent);
       });
 
       it('does not dequeue the event', () => {
-        return fetchFailed.catch(() => assertPersisted({0: testEvent}));
+        assertPersisted({0: testEvent});
+      });
+
+      it('logs the error', () => {
+        sinon.assert.called(logger);
+        sinon.assert.calledWithExactly(logger, fetchError);
       });
     });
 
@@ -216,8 +220,7 @@ describe('PendingEventsPlugin', () => {
     sinon.assert.calledWithExactly(fetchStub, testEvent.url, {
       method: testEvent.httpVerb,
       body: JSON.stringify(testEvent.params),
-      headers: {'content-type': 'application/json'},
-    });
+    }, sinon.match.func);
   }
 
   const persistData = (data) => {
@@ -232,5 +235,5 @@ describe('PendingEventsPlugin', () => {
     expect(getPersistedData()).to.eql(data);
   };
 
-  const createInstance = () => Plugin(testKey);
+  const createInstance = () => Plugin(testKey, fetchStub, logger);
 });
