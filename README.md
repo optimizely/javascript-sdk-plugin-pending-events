@@ -1,6 +1,6 @@
 # @optimizely/sdk-plugin-pending-events
 
-An [`EventDispatcher`](https://developers.optimizely.com/x/solutions/sdks/reference/index.html?language=javascript#event-dispatcher) for Optimizely FullStack
+An [`EventDispatcher`](https://developers.optimizely.com/x/solutions/sdks/reference/index.html?language=javascript#event-dispatcher) for Optimizely FullStack ([`javascript-sdk`](https://github.com/optimizely/javascript-sdk), Web browser environment)
 that keeps a queue of pending (not completed) events and persist to localStorage. This allows us to retry events that are canceled by e.g. a page unload.
 
 ## Install
