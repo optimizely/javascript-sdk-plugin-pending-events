@@ -1,4 +1,5 @@
 import { expect } from 'chai';
+import { keys, values, forEach, assign } from 'lodash';
 import sinon from 'sinon';
 
 import Plugin from '../src/index';
@@ -107,13 +108,13 @@ describe('PendingEventsPlugin', () => {
         });
 
         it('enqueues all data', () => {
-          [testEvent1, testEvent2].forEach(assertSentEvent);
+          forEach([testEvent1, testEvent2], assertSentEvent);
         });
 
         it('reindexes data', () => {
           const persistedData = getPersistedData();
-          expect(Object.keys(persistedData).sort()).to.eql(['0', '1']);
-          expect(Object.values(persistedData).sort()).to.eql([testEvent1, testEvent2].sort());
+          expect(keys(persistedData).sort()).to.eql(['0', '1']);
+          expect(values(persistedData).sort()).to.eql([testEvent1, testEvent2].sort());
         });
       });
     });
@@ -187,7 +188,7 @@ describe('PendingEventsPlugin', () => {
 
     context('when many events are dispatched', () => {
       const totalEvents = 100;
-      const cloneEvent = (i) => Object.assign({}, testEvent, {
+      const cloneEvent = (i) => assign({}, testEvent, {
         params: {
           i,
         }

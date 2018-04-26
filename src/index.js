@@ -6,7 +6,9 @@ class PendingEvents {
 
     this.length = 0;
     this.events = {};
-    Object.values(events).forEach((event) => this.enqueue(event));
+    for (let i in events) {
+      this.enqueue(events[i]);
+    }
     this.persist();
   }
 
