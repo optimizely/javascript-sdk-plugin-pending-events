@@ -27,10 +27,13 @@ Load index.html in browser of your choice.
 
 #### index
 
+[src/index.js:63-84](https://github.com/optimizely/javascript-sdk-plugin-pending-events/blob/68dfb0a2c5e60c041a6b0e2964316bcbe3c43242/src/index.js#L63-L84 "Source code on GitHub")
+
 Construct an EventDispatcher compatible with @optimizely/optimizely-sdk
 
 **Parameters**
 
 -   `localStorageKey` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Key under which to persist/load pending events in `window.localStorage`
+-   `logger` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)?** 
 
 Returns **EventDispatcher** An object with a dispatchEvent method, suitable for use as an EventDispatcher
