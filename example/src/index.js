@@ -1,5 +1,7 @@
 var Optimizely = require('@optimizely/optimizely-sdk');
+// Development mode:
 var OptimizelyPendingEventsPlugin = require('../../lib').default;
+// Production mode
 // var OptimizelyPendingEventsPlugin = require('@optimizely/sdk-plugin-pending-events').default;
 
 var dispatchLogger = function(message) {
