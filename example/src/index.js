@@ -1,36 +1,35 @@
-var Optimizely = require('@optimizely/optimizely-sdk');
+import Optimizely from '@optimizely/optimizely-sdk';
 // Development mode:
-var OptimizelyPendingEventsPlugin = require('../../lib').default;
+// import OptimizelyPendingEventsPlugin from '../../lib';
 // Production mode
-// var OptimizelyPendingEventsPlugin = require('@optimizely/sdk-plugin-pending-events').default;
+import OptimizelyPendingEventsPlugin from '@optimizely/sdk-plugin-pending-events';
 
-var dispatchLogger = function(message) {
+const dispatchLogger = (message) => {
   console.warn('Message from eventDispatcher: ' + message);
 };
 
-var optimizelyLogger = {
+const optimizelyLogger = {
   log: console.log
 };
 
 fetch('https://cdn.optimizely.com/public/81391212/s/10660680194_10660680194.json')
-  .then(function(resp) {
-    return resp.json();
-  })
-  .then(function(datafile) {
-    var userId = 'optimizelyRandomUser' + Math.random();
-    var optimizely = Optimizely.createInstance({
+  .then((resp) => resp.json())
+  .then((datafile) => {
+    // TODO: store in cookie
+    const userId = 'optimizelyRandomUser' + Math.random();
+    const optimizely = Optimizely.createInstance({
       datafile: datafile,
       logger: optimizelyLogger,
       eventDispatcher: OptimizelyPendingEventsPlugin('optimizelyPendingEvents', dispatchLogger)
     });
 
-    var trackAndReload = function(ev) {
+    const trackAndReload = (ev) => {
       optimizely.track('customEvent', userId);
       window.location.reload();
       ev.preventDefault();
-    }
+    };
 
-    var trackButton = document.getElementById('track');
+    const trackButton = document.getElementById('track');
     trackButton.innerText = 'Track and Reload!';
     document.getElementById('track').addEventListener('click', trackAndReload);
   });
