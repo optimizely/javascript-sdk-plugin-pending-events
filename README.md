@@ -27,7 +27,7 @@ Load index.html in browser of your choice.
 
 #### SendJSONCallback
 
-[src/index.js:98-119](https://github.com/optimizely/javascript-sdk-plugin-pending-events/blob/fa87306f0adb04c976b67619f0e1acd2b4329bfc/src/index.js#L54-L57 "Source code on GitHub")
+[src/index.js:105-131](https://github.com/optimizely/javascript-sdk-plugin-pending-events/blob/b59e84950ca9460e0ec08556c66eb82de0599fb7/src/index.js#L61-L64 "Source code on GitHub")
 
 Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)
 
@@ -37,7 +37,7 @@ Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Sta
 
 #### SendJSON
 
-[src/index.js:98-119](https://github.com/optimizely/javascript-sdk-plugin-pending-events/blob/fa87306f0adb04c976b67619f0e1acd2b4329bfc/src/index.js#L59-L88 "Source code on GitHub")
+[src/index.js:105-131](https://github.com/optimizely/javascript-sdk-plugin-pending-events/blob/b59e84950ca9460e0ec08556c66eb82de0599fb7/src/index.js#L66-L95 "Source code on GitHub")
 
 Function to call to send JSON
 
@@ -76,7 +76,7 @@ const sendJSON = (url, options, callback) => {
 
 #### index
 
-[src/index.js:98-119](https://github.com/optimizely/javascript-sdk-plugin-pending-events/blob/fa87306f0adb04c976b67619f0e1acd2b4329bfc/src/index.js#L98-L119 "Source code on GitHub")
+[src/index.js:105-131](https://github.com/optimizely/javascript-sdk-plugin-pending-events/blob/b59e84950ca9460e0ec08556c66eb82de0599fb7/src/index.js#L105-L131 "Source code on GitHub")
 
 Construct an EventDispatcher compatible with @optimizely/optimizely-sdk
 

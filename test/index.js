@@ -1,11 +1,11 @@
-import { expect } from 'chai';
-import { keys, values, forEach, assign } from 'lodash';
-import sinon from 'sinon';
+import { expect } from "chai";
+import { keys, values, forEach, assign } from "lodash";
+import sinon from "sinon";
 
-import Plugin from '../src/index';
+import Plugin from "../src/index";
 
-describe('PendingEventsPlugin', () => {
-  const testKey = 'optimizelyLocalStorageTest';
+describe("PendingEventsPlugin", () => {
+  const testKey = "optimizelyLocalStorageTest";
   let fetchStub;
   let logger;
 
@@ -18,55 +18,55 @@ describe('PendingEventsPlugin', () => {
     removeData();
   });
 
-  describe('default', () => {
-    it('returns an object with dispatchEvent', () => {
+  describe("default", () => {
+    it("returns an object with dispatchEvent", () => {
       const plugin = createInstance();
-      expect(plugin).to.be.an('object');
-      expect(plugin.dispatchEvent).to.be.a('function');
+      expect(plugin).to.be.an("object");
+      expect(plugin.dispatchEvent).to.be.a("function");
     });
 
-    context('when localStorageKey has no data', () => {
+    context("when localStorageKey has no data", () => {
       let plugin;
 
       beforeEach(() => {
         plugin = createInstance();
       });
 
-      it('does not enqueue any events', () => {
+      it("does not enqueue any events", () => {
         sinon.assert.notCalled(fetchStub);
       });
 
-      it('persists an empty object', () => {
+      it("persists an empty object", () => {
         assertPersisted({});
       });
     });
 
-    context('when localStorage key has malformed data', () => {
+    context("when localStorage key has malformed data", () => {
       let plugin;
 
       beforeEach(() => {
-        localStorage.setItem(testKey, 'invalid data');
+        localStorage.setItem(testKey, "invalid data");
         plugin = createInstance();
       });
 
-      it('does not enqueue any events', () => {
+      it("does not enqueue any events", () => {
         sinon.assert.notCalled(fetchStub);
       });
 
-      it('persists an empty object', () => {
+      it("persists an empty object", () => {
         assertPersisted({});
       });
     });
 
-    context('when localStorageKey has data', () => {
+    context("when localStorageKey has data", () => {
       let plugin;
       const testEvent = {
-        url: 'foo',
-        httpVerb: 'post',
-        params: {},
+        url: "foo",
+        httpVerb: "post",
+        params: {}
       };
 
-      context('with a single event', () => {
+      context("with a single event", () => {
         beforeEach(() => {
           persistData({
             0: testEvent
@@ -74,85 +74,87 @@ describe('PendingEventsPlugin', () => {
           plugin = createInstance();
         });
 
-        it('enqueues events for the existing data', () => {
+        it("enqueues events for the existing data", () => {
           sinon.assert.calledOnce(fetchStub);
           assertSentEvent(testEvent);
         });
 
-        it('stores enqueued events in localStorage', () => {
-          assertPersisted({0: testEvent});
+        it("stores enqueued events in localStorage", () => {
+          assertPersisted({ 0: testEvent });
         });
       });
 
-      context('when existing data has gaps', () => {
+      context("when existing data has gaps", () => {
         const testEvent1 = {
-          url: 'foo',
-          httpVerb: 'post',
-          params: {},
+          url: "foo",
+          httpVerb: "post",
+          params: {}
         };
 
         const testEvent2 = {
-          url: 'bar',
-          httpVerb: 'post',
+          url: "bar",
+          httpVerb: "post",
           params: {
-            a: 'true',
-          },
+            a: "true"
+          }
         };
 
         beforeEach(() => {
           persistData({
             2: testEvent1,
-            20: testEvent2,
+            20: testEvent2
           });
           plugin = createInstance();
         });
 
-        it('enqueues all data', () => {
+        it("enqueues all data", () => {
           forEach([testEvent1, testEvent2], assertSentEvent);
         });
 
-        it('reindexes data', () => {
+        it("reindexes data", () => {
           const persistedData = getPersistedData();
-          expect(keys(persistedData).sort()).to.eql(['0', '1']);
-          expect(values(persistedData).sort()).to.eql([testEvent1, testEvent2].sort());
+          expect(keys(persistedData).sort()).to.eql(["0", "1"]);
+          expect(values(persistedData).sort()).to.eql(
+            [testEvent1, testEvent2].sort()
+          );
         });
       });
     });
   });
 
-  describe('#dispatchEvent', () => {
+  describe("#dispatchEvent", () => {
     let plugin;
     const testEvent = {
-      url: 'foo',
-      httpVerb: 'post',
-      params: {},
+      url: "foo",
+      httpVerb: "post",
+      params: {}
     };
 
     beforeEach(() => {
       plugin = createInstance();
     });
 
-    it('enqueues the event', () => {
+    it("enqueues the event", () => {
       plugin.dispatchEvent(testEvent);
       assertSentEvent(testEvent);
     });
 
-    it('persists the data', () => {
+    it("persists the data", () => {
       plugin.dispatchEvent(testEvent);
-      assertPersisted({0: testEvent});
+      assertPersisted({ 0: testEvent });
     });
 
-    context('while fetch is pending', () => {
+    context("while fetch is pending", () => {
       beforeEach(() => {
         plugin.dispatchEvent(testEvent);
       });
 
-      it('keeps the data persisted', () => {
-        assertPersisted({0: testEvent});
+      it("keeps the data persisted", () => {
+        assertPersisted({ 0: testEvent });
       });
     });
 
-    context('when fetch is successful', () => {
+    context("when fetch is successful", () => {
       beforeEach(() => {
         fetchStub.callsFake((url, options, callback) => {
           callback();
@@ -160,55 +162,56 @@ describe('PendingEventsPlugin', () => {
         plugin.dispatchEvent(testEvent);
       });
 
-      it('dequeues the event', () => {
+      it("dequeues the event", () => {
         assertPersisted({});
       });
     });
 
-    context('when fetch fails', () => {
+    context("when fetch fails", () => {
       let fetchError;
 
       beforeEach(() => {
-        fetchError = new Error('oh noes');
+        fetchError = new Error("oh noes");
         fetchStub.callsFake((url, options, callback) => {
           callback(fetchError);
         });
         plugin.dispatchEvent(testEvent);
       });
 
-      it('does not dequeue the event', () => {
-        assertPersisted({0: testEvent});
+      it("does not dequeue the event", () => {
+        assertPersisted({ 0: testEvent });
       });
 
-      it('logs the error', () => {
+      it("logs the error", () => {
         sinon.assert.called(logger);
         sinon.assert.calledWithExactly(logger, fetchError);
       });
     });
 
-    context('when many events are dispatched', () => {
+    context("when many events are dispatched", () => {
       const totalEvents = 100;
-      const cloneEvent = (i) => assign({}, testEvent, {
-        params: {
-          i,
-        }
-      });
+      const cloneEvent = i =>
+        assign({}, testEvent, {
+          params: {
+            i
+          }
+        });
 
       beforeEach(() => {
-        for (let i=0; i < totalEvents; i++) {
+        for (let i = 0; i < totalEvents; i++) {
           plugin.dispatchEvent(cloneEvent(i));
         }
       });
 
-      it('enqueues them all', () => {
-        for (let i=0; i < totalEvents; i++) {
+      it("enqueues them all", () => {
+        for (let i = 0; i < totalEvents; i++) {
           assertSentEvent(cloneEvent(i));
         }
       });
 
-      it('persists event data', () => {
+      it("persists event data", () => {
         let expected = {};
-        for (let i=0; i < totalEvents; i++) {
+        for (let i = 0; i < totalEvents; i++) {
           expected[i] = cloneEvent(i);
         }
 
@@ -217,14 +220,19 @@ describe('PendingEventsPlugin', () => {
     });
   });
 
-  const assertSentEvent = (testEvent) => {
-    sinon.assert.calledWithExactly(fetchStub, testEvent.url, {
-      method: testEvent.httpVerb,
-      body: JSON.stringify(testEvent.params),
-    }, sinon.match.func);
-  }
+  const assertSentEvent = testEvent => {
+    sinon.assert.calledWithExactly(
+      fetchStub,
+      testEvent.url,
+      {
+        method: testEvent.httpVerb,
+        body: JSON.stringify(testEvent.params)
+      },
+      sinon.match.func
+    );
+  };
 
-  const persistData = (data) => {
+  const persistData = data => {
     localStorage.setItem(testKey, JSON.stringify(data));
   };
 
@@ -232,7 +240,7 @@ describe('PendingEventsPlugin', () => {
 
   const getPersistedData = () => JSON.parse(localStorage.getItem(testKey));
 
-  const assertPersisted = (data) => {
+  const assertPersisted = data => {
     expect(getPersistedData()).to.eql(data);
   };
 

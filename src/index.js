@@ -15,19 +15,22 @@ class PendingEvents {
   persist() {
     // TODO: delete key if empty
     try {
-      window.localStorage.setItem(this.localStorageKey, JSON.stringify(this.events));
-    } catch(e) {
+      window.localStorage.setItem(
+        this.localStorageKey,
+        JSON.stringify(this.events)
+      );
+    } catch (e) {
       this.logger(e);
     }
   }
 
   enqueue(event) {
     const idx = this.length++;
-    this.logger('Enqueuing event at index: ' + idx);
+    this.logger("Enqueuing event at index: " + idx);
     this.events[idx] = event;
 
     // TODO: add support for inline retry?
-    this.sendEvent(event, (err) => {
+    this.sendEvent(event, err => {
       if (err) {
         this.logger(err);
         return;
@@ -35,7 +38,7 @@ class PendingEvents {
 
       this.dequeue(idx);
       this.persist();
-      this.logger('Successfully sent event with index: ' + idx);
+      this.logger("Successfully sent event with index: " + idx);
     });
   }
 
@@ -44,10 +47,14 @@ class PendingEvents {
   }
 
   sendEvent(event, callback) {
-    this.sendJSON(event.url, {
-      method: event.httpVerb,
-      body: JSON.stringify(event.params),
-    }, callback);
+    this.sendJSON(
+      event.url,
+      {
+        method: event.httpVerb,
+        body: JSON.stringify(event.params)
+      },
+      callback
+    );
   }
 }
 
@@ -107,13 +114,18 @@ export default (localStorageKey, sendJSON, logger) => {
     logger(e);
   }
 
-  const pendingEvents = new PendingEvents(localStorageKey, sendJSON, currentEvents, logger);
+  const pendingEvents = new PendingEvents(
+    localStorageKey,
+    sendJSON,
+    currentEvents,
+    logger
+  );
 
   return {
-    dispatchEvent: (event) => {
-      logger('Enqueuing event');
+    dispatchEvent: event => {
+      logger("Enqueuing event");
       pendingEvents.enqueue(event);
       pendingEvents.persist();
     }
   };
-}
+};
