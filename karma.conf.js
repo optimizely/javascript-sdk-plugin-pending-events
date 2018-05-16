@@ -1,6 +1,72 @@
 // Karma configuration
 // Generated on Thu Apr 26 2018 10:59:21 GMT-0700 (PDT)
 
+// https://www.browserstack.com/automate/node#run-tests-on-desktop-mobile, plus a lot of trial and error
+const browserstackLaunchers = {
+  // Popular desktop browsers
+  bs_chrome_win: {
+    base: 'BrowserStack',
+    browser: 'Chrome',
+    os: 'Windows',
+    os_version: '10',
+  },
+  bs_firefox_win: {
+    base: 'BrowserStack',
+    browser: 'Firefox',
+    os: 'Windows',
+    os_version: '10',
+  },
+  bs_edge: {
+    base: 'BrowserStack',
+    browser: 'Edge',
+    os: 'Windows',
+    os_version: '10',
+  },
+  bs_safari_mac: {
+    base: 'BrowserStack',
+    browser: 'Safari',
+    browser_version: '11.1',
+    os: 'OS X',
+    os_version: 'High Sierra',
+  },
+  // Oldest supported desktop browser
+  bs_ie_10: {
+    base: 'BrowserStack',
+    browser: 'ie',
+    browser_version: '10',
+    os: 'Windows',
+    os_version: '7',
+  },
+  // Most modern iPhone available without "real devices" support
+  bs_iphone: {
+    base: 'BrowserStack',
+    device: 'iPhone 6S',
+    platform: 'MAC',
+    // Despite what configurator suggests, os/os_version are not optional
+    os: 'iOS',
+    os_version: '9.1',
+  },
+  // Oldest supported iOS: 6.0
+  bs_iphone5: {
+    base: 'BrowserStack',
+    device: 'iPhone 5',
+    platform: 'MAC',
+    // Despite what configurator suggests, os/os_version are not optional
+    os: 'iOS',
+    os_version: '6.0',
+  },
+  // Most modern Android available without "real devices" support (Android 4.4)
+  bs_android: {
+    base: 'BrowserStack',
+    browser: 'android',
+    platform: 'ANDROID',
+    device: 'Samsung Galaxy S5 Mini',
+    // Despite what configurator suggests, os/os_version are not optional
+    os: 'android',
+    os_version: '4.4',
+  },
+};
+
 module.exports = function(config) {
   config.set({
 
@@ -75,38 +141,18 @@ module.exports = function(config) {
     autoWatch: true,
 
     browserStack: {
-      project: process.env.JOB_NAME,
+      project: 'javascript-sdk-plugin-pending-events',
       build: process.env.BUILD_NUMBER,
       username: process.env.BROWSERSTACK_USERNAME,
       accessKey: process.env.BROWSERSTACK_ACCESS_KEY,
     },
 
     // define browserstack browsers
-    customLaunchers: {
-      bs_firefox_mac: {
-        base: 'BrowserStack',
-        browser: 'firefox',
-        os: 'OS X',
-        os_version: 'Sierra'
-      },
-      bs_iphone5: {
-        base: 'BrowserStack',
-        device: 'iPhone 5',
-        os: 'ios',
-        os_version: '6.0'
-      },
-      bs_ie_10: {
-        base: 'BrowserStack',
-        browser: 'ie',
-        browser_version: '10',
-        os: 'Windows',
-        os_version: '7',
-      },
-    },
+    customLaunchers: browserstackLaunchers,
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome', 'bs_firefox_mac', 'bs_iphone5', 'bs_ie_10'],
+    browsers: process.env.BROWSERSTACK_USERNAME ? Object.keys(browserstackLaunchers) : ['Chrome'],
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
