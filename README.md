@@ -1,5 +1,7 @@
 # @optimizely/sdk-plugin-pending-events
 
+[![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=VFFWdTVVODZyelR1eEFoMTV1ekY3UjFpSTVQemQwcU50RXJLMjk3dEhsUT0tLXBtdUNkNWR3VVdYYmJrSnZBc2dBNmc9PQ==--870d019874abb415a289e1bb630ccdc9eb07c909)](https://www.browserstack.com/automate/public-build/VFFWdTVVODZyelR1eEFoMTV1ekY3UjFpSTVQemQwcU50RXJLMjk3dEhsUT0tLXBtdUNkNWR3VVdYYmJrSnZBc2dBNmc9PQ==--870d019874abb415a289e1bb630ccdc9eb07c909)
+
 An [`EventDispatcher`](https://developers.optimizely.com/x/solutions/sdks/reference/index.html?language=javascript#event-dispatcher) for Optimizely FullStack ([`javascript-sdk`](https://github.com/optimizely/javascript-sdk), Web browser environment)
 that keeps a queue of pending (not completed) events and persist to localStorage. This allows us to retry events that are canceled by e.g. a page unload.
 
@@ -46,7 +48,7 @@ Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Sta
 **Parameters**
 
 -   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** URL to send to
--   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
     -   `options.method` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** HTTP method to use
     -   `options.body` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Body text (should be stringified JSON)
 -   `callback` **[SendJSONCallback](#sendjsoncallback)** Function to call, with no arguments, if successful, and with Error object, if error
@@ -84,6 +86,6 @@ Construct an EventDispatcher compatible with @optimizely/optimizely-sdk
 
 -   `localStorageKey` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Key under which to persist/load pending events in `window.localStorage`
 -   `sendJSON` **[SendJSON](#sendjson)** Function to call to send payload
--   `logger` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)?** 
+-   `logger` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)?**
 
 Returns **EventDispatcher** An object with a dispatchEvent method, suitable for use as an EventDispatcher
