@@ -1,8 +1,3 @@
 language: node_js
 node_js:
   - "8"
-addons:
-  browserstack:
-    username: tyler42
-    access_key:
-      secure: "t73pVRamP/40WM/wcdqrlt6sqnFDMv0u0IMAhrGliJDW1SmvyA8Vk/OnKntnah/1yKws96ECmpLJrYVrxKkIri4/WgMAuIpmza6Q0eUieEDGDN8gJccKXpw6GEgwTB1hsrQ4j8rK5uEX6Rg24tiwT7CjYKpRyXmWLfMMVkbO6pSrAuuB5pRppyvUYswE7XnPJc6hmoQHZc7POgKkwQAk47TIcfE9n0gy+npnZWnyuiHWs8C8hEUV/NjCPIPqX2DNRScB6yshlrOm/9yk1GA9gOoMTHhmeAXF1rFpI7fm1WxzFkqOXTxyh6mgRXukBay6R5lbiIktqkc0+UVjWEqiXXcVbb3Vb+Cojhn61NXV2i7RWH46h7JCQpDPi5RfqYRypCTI1u7Adbsb1w73onOmx6Y6uYU+sk8/zGgGAR5mKsB2hr4i8j8O5IvZCM+EC9M0JkZ5ANL7+r3nwEn1b+TGqH/t4MPnK9pkrTLvxinGoakJIfxmaji3Putuw0Yr9R/jLonbncvbGRK4/P0/3FmYieezsW975CYSLkb1UIbupkXMkQlo35BtrgP0fi9Th15zgHYS0RixSa+IQ8U2y+HWAhQF0Y2skKt45lVSi3N8+6eyUcNFXUEy1AXbyV2OZvPKnVwhSlUmFNnKnxWXwzfc07kWwwv2R6pgXs3XsAARAhc="
