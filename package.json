@@ -7,7 +7,7 @@
     "build": "babel src --out-dir lib",
     "prepare": "npm run build",
     "doc": "documentation readme src/index.js -s API --markdown-toc false --github",
-    "test": "karma start"
+    "test": "karma start --single-run"
   },
   "author": "",
   "license": "Apache-2.0",
