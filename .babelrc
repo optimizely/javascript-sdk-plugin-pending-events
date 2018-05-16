@@ -3,7 +3,7 @@
     [
       "babel-preset-env", {
         "targets": {
-          "browsers": ["IE >= 10"]
+          "browsers": [">1%", "IE >= 10", "iOS >= 6.0", "Android >= 4.4"]
         }
       }
     ]
