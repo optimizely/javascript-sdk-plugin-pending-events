@@ -75,7 +75,7 @@ module.exports = function(config) {
     autoWatch: true,
 
     browserStack: {
-      project: process.env.JOB_NAME,
+      project: 'javascript-sdk-plugin-pending-events',
       build: process.env.BUILD_NUMBER,
       username: process.env.BROWSERSTACK_USERNAME,
       accessKey: process.env.BROWSERSTACK_ACCESS_KEY,
