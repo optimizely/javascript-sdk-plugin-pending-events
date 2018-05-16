@@ -1,6 +1,28 @@
 // Karma configuration
 // Generated on Thu Apr 26 2018 10:59:21 GMT-0700 (PDT)
 
+const browserstackLaunchers = {
+  bs_firefox_mac: {
+    base: 'BrowserStack',
+    browser: 'firefox',
+    os: 'OS X',
+    os_version: 'Sierra'
+  },
+  bs_iphone5: {
+    base: 'BrowserStack',
+    device: 'iPhone 5',
+    os: 'ios',
+    os_version: '6.0'
+  },
+  bs_ie_10: {
+    base: 'BrowserStack',
+    browser: 'ie',
+    browser_version: '10',
+    os: 'Windows',
+    os_version: '7',
+  },
+};
+
 module.exports = function(config) {
   config.set({
 
@@ -82,31 +104,11 @@ module.exports = function(config) {
     },
 
     // define browserstack browsers
-    customLaunchers: {
-      bs_firefox_mac: {
-        base: 'BrowserStack',
-        browser: 'firefox',
-        os: 'OS X',
-        os_version: 'Sierra'
-      },
-      bs_iphone5: {
-        base: 'BrowserStack',
-        device: 'iPhone 5',
-        os: 'ios',
-        os_version: '6.0'
-      },
-      bs_ie_10: {
-        base: 'BrowserStack',
-        browser: 'ie',
-        browser_version: '10',
-        os: 'Windows',
-        os_version: '7',
-      },
-    },
+    customLaunchers: browserstackLaunchers,
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: process.env.BROWSERSTACK_USERNAME ? ['bs_firefox_mac', 'bs_iphone5', 'bs_ie_10'] : ['Chrome'],
+    browsers: process.env.BROWSERSTACK_USERNAME ? Object.keys(browserstackLaunchers) : ['Chrome'],
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
