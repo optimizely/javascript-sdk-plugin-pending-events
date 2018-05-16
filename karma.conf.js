@@ -5,6 +5,7 @@ const browserstackLaunchers = {
   bs_chrome_win: {
     base: 'BrowserStack',
     os: 'Windows',
+    os_version: '10',
     browser: 'chrome',
   },
   bs_firefox_mac: {
