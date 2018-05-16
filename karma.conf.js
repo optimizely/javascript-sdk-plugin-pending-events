@@ -2,17 +2,22 @@
 // Generated on Thu Apr 26 2018 10:59:21 GMT-0700 (PDT)
 
 const browserstackLaunchers = {
+  bs_chrome_win: {
+    base: 'BrowserStack',
+    os: 'windows',
+    browser: 'chrome',
+  },
   bs_firefox_mac: {
     base: 'BrowserStack',
     browser: 'firefox',
     os: 'OS X',
-    os_version: 'Sierra'
+    os_version: 'Sierra',
   },
   bs_iphone5: {
     base: 'BrowserStack',
     device: 'iPhone 5',
     os: 'ios',
-    os_version: '6.0'
+    os_version: '6.0',
   },
   bs_ie_10: {
     base: 'BrowserStack',
