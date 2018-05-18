@@ -1,11 +1,11 @@
 import Optimizely from "@optimizely/optimizely-sdk";
 // Development mode:
-import OptimizelyPendingEventsPlugin from "../../lib";
+// import OptimizelyPendingEventsPlugin from "../../lib";
 // Production mode
-// import OptimizelyPendingEventsPlugin from '@optimizely/sdk-plugin-pending-events';
+import OptimizelyPendingEventsPlugin from '@optimizely/sdk-plugin-pending-events';
 
 const dispatchLogger = message => {
-  console.warn("Message from eventDispatcher: " + message);
+  console.log("Message from eventDispatcher: " + message);
 };
 
 const dispatchFetcher = (url, options, callback) => {
@@ -32,7 +32,7 @@ const optimizelyLogger = {
 fetch(
   "https://cdn.optimizely.com/public/81391212/s/10660680194_10660680194.json"
 )
-  .then(resp => resp.json())
+  .then(resp => resp.text())
   .then(datafile => {
     // TODO: store in cookie
     const userId = "optimizelyRandomUser" + Math.random();
