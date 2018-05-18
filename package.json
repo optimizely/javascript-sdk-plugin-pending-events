@@ -6,7 +6,7 @@
   "scripts": {
     "build": "babel src --out-dir lib",
     "prepare": "npm run build",
-    "doc": "documentation readme src/index.js -s API --markdown-toc false --github",
+    "doc": "documentation readme src/index.js -s API --markdown-toc false",
     "test": "karma start --single-run"
   },
   "author": "",

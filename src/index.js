@@ -59,43 +59,7 @@ class PendingEvents {
 }
 
 /**
- * @callback SendJSONCallback
- * @param {Error=} error Error, if any
- */
-
-/**
- * Function to call to send JSON
- *
- * @example
- * // Example sendJSON built using fetch
- * const sendJSON = (url, options, callback) => {
- *   const {method, body} = options;
- *   return fetch(url, {
- *     method,
- *     body,
- *     headers: {
- *       'content-type': 'application/json',
- *     }
- *   })
- *   .then((resp) => {
- *     if (resp.status < 400) {
- *       callback();
- *     } else {
- *       callback(new Error(`Bad response code: ${resp.status}`));
- *     }
- *   }, callback);
- * }
- *
- * @callback SendJSON
- * @param {String} url URL to send to
- * @param {Object} options
- * @param {String} options.method HTTP method to use
- * @param {String} options.body Body text (should be stringified JSON)
- * @param {SendJSONCallback} callback Function to call, with no arguments, if successful, and with Error object, if error
- */
-
-/**
- * Construct an EventDispatcher compatible with @optimizely/optimizely-sdk
+ * Construct an EventDispatcher compatible with [`@optimizely/optimizely-sdk`](https://www.npmjs.com/package/@optimizely/optimizely-sdk)
  *
  * @param {String} localStorageKey Key under which to persist/load pending events in `window.localStorage`
  * @param {SendJSON} sendJSON Function to call to send payload
@@ -129,3 +93,40 @@ export default (localStorageKey, sendJSON, logger) => {
     }
   };
 };
+
+/**
+ * Function to call to send JSON
+ *
+ * @example
+ * // Example sendJSON built using fetch
+ * const sendJSON = (url, options, callback) => {
+ *   const {method, body} = options;
+ *   return fetch(url, {
+ *     method,
+ *     body,
+ *     headers: {
+ *       'content-type': 'application/json',
+ *     }
+ *   })
+ *   .then((resp) => {
+ *     if (resp.status < 400) {
+ *       callback();
+ *     } else {
+ *       callback(new Error(`Bad response code: ${resp.status}`));
+ *     }
+ *   }, callback);
+ * }
+ *
+ * @callback SendJSON
+ * @param {String} url URL to send to
+ * @param {Object} options
+ * @param {String} options.method HTTP method to use
+ * @param {String} options.body Body text (should be stringified JSON)
+ * @param {SendJSONCallback} callback Function to call, with no arguments, if successful, and with Error object, if error
+ */
+
+/**
+ * @callback SendJSONCallback
+ * @param {Error=} error Error, if any
+ */
+
