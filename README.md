@@ -24,7 +24,7 @@ $ npm install
 $ npm start
 ```
 
-Load index.html in browser of your choice.
+Load the URL provided by `webpack-serve` in a browser of your choice.
 
 ### API
 
