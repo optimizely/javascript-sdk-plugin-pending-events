@@ -11,7 +11,7 @@ Tracking click in browsers is difficult because browsers often redirect users be
 ## Install
 
 ```sh
-npm install @optimizely/sdk-plugin-pending-events
+npm install @optimizely/sdk-plugin-pending-events --save
 ```
 
 ## Usage
@@ -38,7 +38,7 @@ Construct an EventDispatcher compatible with [`@optimizely/optimizely-sdk`](http
 
 -   `localStorageKey` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Key under which to persist/load pending events in `window.localStorage`
 -   `sendJSON` **[SendJSON](#sendjson)** Function to call to send payload
--   `logger` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)?** 
+-   `logger` **[Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)?**
 
 Returns **EventDispatcher** An object with a dispatchEvent method, suitable for use as an EventDispatcher
 
@@ -51,7 +51,7 @@ Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Sta
 **Parameters**
 
 -   `url` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** URL to send to
--   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+-   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)**
     -   `options.method` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** HTTP method to use
     -   `options.body` **[String](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** Body text (should be stringified JSON)
 -   `callback` **[SendJSONCallback](#sendjsoncallback)** Function to call, with no arguments, if successful, and with Error object, if error
