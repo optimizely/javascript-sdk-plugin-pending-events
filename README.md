@@ -2,7 +2,7 @@
 
 [![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=VFFWdTVVODZyelR1eEFoMTV1ekY3UjFpSTVQemQwcU50RXJLMjk3dEhsUT0tLXBtdUNkNWR3VVdYYmJrSnZBc2dBNmc9PQ==--870d019874abb415a289e1bb630ccdc9eb07c909)](https://www.browserstack.com/automate/public-build/VFFWdTVVODZyelR1eEFoMTV1ekY3UjFpSTVQemQwcU50RXJLMjk3dEhsUT0tLXBtdUNkNWR3VVdYYmJrSnZBc2dBNmc9PQ==--870d019874abb415a289e1bb630ccdc9eb07c909)
 
-An **unsupported, experimental⚠️** [`EventDispatcher`](https://developers.optimizely.com/x/solutions/sdks/reference/index.html?language=javascript#event-dispatcher) for Optimizely Full Stack ([`javascript-sdk`](https://github.com/optimizely/javascript-sdk), Web browser environment) that keeps a queue of pending (not completed) events and persist to `localStorage`, and retries pending events on initialization.
+An **unsupported, experimental⚠️** [`EventDispatcher`](https://developers.optimizely.com/x/solutions/sdks/reference/index.html?language=javascript#event-dispatcher) for Optimizely Full Stack ([`javascript-sdk`](https://github.com/optimizely/javascript-sdk), Web browser environment) that keeps a queue of pending (not completed) events persisted to `localStorage`, and retries pending events on initialization.
 
 ## Motivation
 
