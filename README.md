@@ -2,8 +2,11 @@
 
 [![BrowserStack Status](https://www.browserstack.com/automate/badge.svg?badge_key=VFFWdTVVODZyelR1eEFoMTV1ekY3UjFpSTVQemQwcU50RXJLMjk3dEhsUT0tLXBtdUNkNWR3VVdYYmJrSnZBc2dBNmc9PQ==--870d019874abb415a289e1bb630ccdc9eb07c909)](https://www.browserstack.com/automate/public-build/VFFWdTVVODZyelR1eEFoMTV1ekY3UjFpSTVQemQwcU50RXJLMjk3dEhsUT0tLXBtdUNkNWR3VVdYYmJrSnZBc2dBNmc9PQ==--870d019874abb415a289e1bb630ccdc9eb07c909)
 
-An [`EventDispatcher`](https://developers.optimizely.com/x/solutions/sdks/reference/index.html?language=javascript#event-dispatcher) for Optimizely FullStack ([`javascript-sdk`](https://github.com/optimizely/javascript-sdk), Web browser environment)
-that keeps a queue of pending (not completed) events and persist to localStorage. This allows us to retry events that are canceled by e.g. a page unload.
+An **unsupported, experimental⚠️** [`EventDispatcher`](https://developers.optimizely.com/x/solutions/sdks/reference/index.html?language=javascript#event-dispatcher) for Optimizely Full Stack ([`javascript-sdk`](https://github.com/optimizely/javascript-sdk), Web browser environment) that keeps a queue of pending (not completed) events and persist to `localStorage`, and retries pending events on initialization.
+
+## Motivation
+
+Tracking click in browsers is difficult because browsers often redirect users before tracking requests complete. This example suggests one of many possible solutions to the above problem. Feel free to try it out, modify according the the LICENSE, and suggest changes here. And if you have another method for tackling this problem, we'd love to hear from you! Drop us a line at developers@optimizely.com.
 
 ## Install
 
